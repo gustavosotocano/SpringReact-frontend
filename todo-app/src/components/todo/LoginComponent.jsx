@@ -45,7 +45,7 @@ class LoginComponent extends Component {
                     {this.state.showSuccessMessage && <div>Login Successful</div>}
                     {/*<ShowSuccessCredentials showSuccessMessage={this.state.showSuccessMessage}/>*/}
 
-                    User Name: <input type="text" name="username" value={this.state.username} value="in28minutes" onChange={this.handlerChange} />
+                    User Name: <input type="text" name="username" value={this.state.username} onChange={this.handlerChange} />
                     Password: <input type="password" name="password" value={this.state.password} onChange={this.handlerChange} />
                     <button className="btn btn-sucesss" onClick={this.loginClicked}>Login</button>
                 </div>
