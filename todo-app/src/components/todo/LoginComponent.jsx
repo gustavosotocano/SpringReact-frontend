@@ -1,4 +1,4 @@
-import React,{Component} from "react"
+import React, { Component } from "react"
 import AuthenticationService from "./AuthenticationService.js"
 
 
@@ -23,16 +23,26 @@ class LoginComponent extends Component {
     }
 
     loginClicked() {
-        if (this.state.username === 'in28minutes' && this.state.password === 'dummy') {
-            AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
-            this.props.navigate(`/welcome/${this.state.username}`)
-        }
-        else {
+        console.log("this.loginClicked")
+      //  AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+      //      .then(() => {
+      //              AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+      //              this.props.navigate(`/welcome/${this.state.username}`)
+      ///      }).catch(()=>{
+      //          this.setState({ hasLoginFailed: true })
+      //          this.setState({ showSuccessMessage: false })
+      //      })
 
-            this.setState({ hasLoginFailed: true })
-            this.setState({ showSuccessMessage: false })
-        }
-        console.log(this.state)
+            AuthenticationService.executeJwtAuthenticationService(this.state.username, this.state.password)
+            .then((response) => {
+                console.log("this.response"+response.data.token)
+                    AuthenticationService.registerSuccessfulLoginForJwt(this.state.username,response.data.token);
+                    this.props.navigate(`/welcome/${this.state.username}`)
+            }).catch(()=>{
+                console.log("this.catch")
+                this.setState({ hasLoginFailed: true })
+                this.setState({ showSuccessMessage: false })
+            })
     }
 
     render() {
